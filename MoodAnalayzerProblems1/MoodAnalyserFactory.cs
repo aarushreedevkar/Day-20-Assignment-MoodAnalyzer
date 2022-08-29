@@ -33,28 +33,31 @@ namespace MoodAnalayzerProblems1
             }
         }
 
-        //UC5-Reflection using parameterized constructor
-        public static object CreatedMoodAnalyserUsingParameterizedConstructor(string className, string constructorName, string message)
+        public static string InvokeMethod(string className, string methodName, string message)
         {
-            Type type = typeof(MoodAnalyser);
-            if (type.Name.Equals(className) || type.FullName.Equals(className))
+            Type type1 = typeof(MoodAnalyser);
+            try
             {
-                if (type.Name.Equals(constructorName))
-                {
-                    ConstructorInfo constructorInfo = type.GetConstructor(new[] { typeof(string) });
-                    object instance = constructorInfo.Invoke(new object[] { message });
-                    return instance;
-                }
-                else
-                {
-                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Constructor is not found");
-                }
+                ConstructorInfo constructor = type1.GetConstructor(new[] { typeof(string) });
+                object obj = MoodAnalyserFactory.CreatedMoodAnalyserUsingParameterizedConstructor(className, methodName, message);
+                Assembly excutingAssambly = Assembly.GetExecutingAssembly();
+                Type type = excutingAssambly.GetType(className);
+                MethodInfo getMoodMethod = type.GetMethod(methodName);
+                string msg = (string)getMoodMethod.Invoke(obj, null);
+                return msg;
             }
-            else
+            catch (Exception)
             {
-                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, "Class not found");
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.INVALID_INPUT, "No Such Method");
+            }
+        }
 
-            }
+        private static object CreatedMoodAnalyserUsingParameterizedConstructor(string className, string methodName, string message)
+        {
+            throw new NotImplementedException();
         }
     }
 }
+        
+    
+
