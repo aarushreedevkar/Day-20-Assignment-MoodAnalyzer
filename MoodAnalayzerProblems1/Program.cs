@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace MoodAnalayzerProblems1
+{
+    class program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to Mood Analyser Problem");
+        }
+    }
+}
