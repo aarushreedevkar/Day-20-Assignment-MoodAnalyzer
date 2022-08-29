@@ -8,7 +8,7 @@ namespace MoodAnalayzerProblems1
 {
    public class MoodAnalyser
     {
-
+        //instance variable
         string message;
 
         //parameterized constructor for initializing instance member
